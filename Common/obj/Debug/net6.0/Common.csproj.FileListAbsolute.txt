@@ -1,0 +1,12 @@
+C:\D Drive\pradheep project\angular projects\food application\foodDeliveryApi\Common\bin\Debug\net6.0\Common.deps.json
+C:\D Drive\pradheep project\angular projects\food application\foodDeliveryApi\Common\bin\Debug\net6.0\Common.dll
+C:\D Drive\pradheep project\angular projects\food application\foodDeliveryApi\Common\bin\Debug\net6.0\Common.pdb
+C:\D Drive\pradheep project\angular projects\food application\foodDeliveryApi\Common\obj\Debug\net6.0\Common.csproj.AssemblyReference.cache
+C:\D Drive\pradheep project\angular projects\food application\foodDeliveryApi\Common\obj\Debug\net6.0\Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\D Drive\pradheep project\angular projects\food application\foodDeliveryApi\Common\obj\Debug\net6.0\Common.AssemblyInfoInputs.cache
+C:\D Drive\pradheep project\angular projects\food application\foodDeliveryApi\Common\obj\Debug\net6.0\Common.AssemblyInfo.cs
+C:\D Drive\pradheep project\angular projects\food application\foodDeliveryApi\Common\obj\Debug\net6.0\Common.csproj.CoreCompileInputs.cache
+C:\D Drive\pradheep project\angular projects\food application\foodDeliveryApi\Common\obj\Debug\net6.0\Common.dll
+C:\D Drive\pradheep project\angular projects\food application\foodDeliveryApi\Common\obj\Debug\net6.0\refint\Common.dll
+C:\D Drive\pradheep project\angular projects\food application\foodDeliveryApi\Common\obj\Debug\net6.0\Common.pdb
+C:\D Drive\pradheep project\angular projects\food application\foodDeliveryApi\Common\obj\Debug\net6.0\ref\Common.dll
