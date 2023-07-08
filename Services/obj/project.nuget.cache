@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Jkx5kqqlfs9CwynfGykhOwC+utvrHaeTfZ77XQt5nAFyVdNNwk5ZmJXYoHNQYeBk1A84Y1jQjbrW1zpDDqc63Q==",
+  "dgSpecHash": "6ajqhQAbdozMNd8mTZ1Gr3rJ55vHjuxbzg7fhCWpDMXPXR2Vcxc/9auQXRPX+SKXjQBdVgwzRL2AevyN6VEVBA==",
   "success": true,
-  "projectFilePath": "C:\\D Drive\\pradheep project\\angular projects\\food application\\foodDeliveryApi\\Services\\Services.csproj",
+  "projectFilePath": "C:\\D Drive\\pradheep project\\angular projects\\github\\Food-App-Api\\Services\\Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PradeepMalligarChuna\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\PradeepMalligarChuna\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

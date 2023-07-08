@@ -16,6 +16,6 @@ namespace DataAccess.Interfaces
         public IList<RestaurentFoods> GetAllFoods(int id);
         public void addFilePathToFood(string filePath,int foodId,int restaurentId);
         public void deleteFood(int restaurentId, int foodId);
-        public void UpdateRestaurentInformation(RestaurentInformation restaurentInformation,string imagePath);
+        public void UpdateRestaurentInformation(RestaurentInformation restaurentInformation);
     }
 }

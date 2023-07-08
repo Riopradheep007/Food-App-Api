@@ -13,15 +13,20 @@ namespace foodDeliveryApi.Controllers
         {
               _customerService = customerService;
         }
-/*
+
         [HttpGet]
-        [Route("foods")]
+        [Route("foods/{foodType}")]
         public IActionResult GetFoods([FromRoute] string foodType)
         {
             try
             {
                 var customer = _customerService.Value.GetFoods(foodType);
+                return Ok(customer);
             }
-        }*/
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

@@ -47,11 +47,10 @@ namespace DataAccess.Queries
             ExecuteNonQuery(query, null, CommandType.Text);
         }
 
-        public void UpdateRestaurentInformation(RestaurentInformation resInfo,string imagePath)
+        public void UpdateRestaurentInformation(RestaurentInformation resInfo)
         {
             string query = $@"update restaurent set RestaurentName='{resInfo.RestaurentName}',description='{resInfo.Description}'
-                              ,address='{resInfo.Address}',restaurentStatus = '{resInfo.RestaurentStatus}'
-                              ,imagePath= '{imagePath}'";
+                              ,address='{resInfo.Address}',restaurentStatus = '{resInfo.RestaurentStatus}'";
             ExecuteNonQuery(query, null, CommandType.Text);
         }
         public IList<RestaurentFoods> GetAllFoods(int id)

@@ -3914,11 +3914,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\D Drive\\pradheep project\\angular projects\\food application\\foodDeliveryApi\\Services\\Services.csproj",
+      "projectUniqueName": "C:\\D Drive\\pradheep project\\angular projects\\github\\Food-App-Api\\Services\\Services.csproj",
       "projectName": "Services",
-      "projectPath": "C:\\D Drive\\pradheep project\\angular projects\\food application\\foodDeliveryApi\\Services\\Services.csproj",
+      "projectPath": "C:\\D Drive\\pradheep project\\angular projects\\github\\Food-App-Api\\Services\\Services.csproj",
       "packagesPath": "C:\\Users\\PradeepMalligarChuna\\.nuget\\packages\\",
-      "outputPath": "C:\\D Drive\\pradheep project\\angular projects\\food application\\foodDeliveryApi\\Services\\obj\\",
+      "outputPath": "C:\\D Drive\\pradheep project\\angular projects\\github\\Food-App-Api\\Services\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\PradeepMalligarChuna\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3935,8 +3935,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\D Drive\\pradheep project\\angular projects\\food application\\foodDeliveryApi\\DataAccess\\DataAccess.csproj": {
-              "projectPath": "C:\\D Drive\\pradheep project\\angular projects\\food application\\foodDeliveryApi\\DataAccess\\DataAccess.csproj"
+            "C:\\D Drive\\pradheep project\\angular projects\\github\\Food-App-Api\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "C:\\D Drive\\pradheep project\\angular projects\\github\\Food-App-Api\\DataAccess\\DataAccess.csproj"
             }
           }
         }

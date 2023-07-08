@@ -57,17 +57,7 @@ namespace Services.Functional
         public void UpdateRestaurentInformation(RestaurentInformation restaurentInformation)
         {
             string imagePath = string.Empty;
-            if (!String.IsNullOrEmpty(restaurentInformation.RestaurentImage))
-            {
-                DeleteImage(restaurentInformation.ImagePath);
-                UpdateImage(restaurentInformation.ImagePath, restaurentInformation.RestaurentImage);
-
-            }
-            else {  
-                imagePath = SaveRestaurentImageIntoFolder(restaurentInformation);
-            }
-            var saveImagePath = string.IsNullOrEmpty(imagePath)?restaurentInformation.ImagePath:imagePath;
-            _restaurentDataAccess.Value.UpdateRestaurentInformation(restaurentInformation, saveImagePath);
+            _restaurentDataAccess.Value.UpdateRestaurentInformation(restaurentInformation);
         }
 
         private string CreateRestaurentFolder(int restaurentId)

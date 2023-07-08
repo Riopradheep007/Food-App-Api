@@ -3529,11 +3529,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\D Drive\\pradheep project\\angular projects\\food application\\foodDeliveryApi\\Common\\Common.csproj",
+      "projectUniqueName": "C:\\D Drive\\pradheep project\\angular projects\\github\\Food-App-Api\\Common\\Common.csproj",
       "projectName": "Common",
-      "projectPath": "C:\\D Drive\\pradheep project\\angular projects\\food application\\foodDeliveryApi\\Common\\Common.csproj",
+      "projectPath": "C:\\D Drive\\pradheep project\\angular projects\\github\\Food-App-Api\\Common\\Common.csproj",
       "packagesPath": "C:\\Users\\PradeepMalligarChuna\\.nuget\\packages\\",
-      "outputPath": "C:\\D Drive\\pradheep project\\angular projects\\food application\\foodDeliveryApi\\Common\\obj\\",
+      "outputPath": "C:\\D Drive\\pradheep project\\angular projects\\github\\Food-App-Api\\Common\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\PradeepMalligarChuna\\AppData\\Roaming\\NuGet\\NuGet.Config",
