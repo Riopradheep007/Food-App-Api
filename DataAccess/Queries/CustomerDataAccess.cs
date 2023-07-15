@@ -21,7 +21,8 @@ namespace DataAccess.Queries
 
         public IList<Foods> GetFoods(string foodType)
         {
-            string query = $@" select res.restaurentName as RestaurentName 
+            string query = $@" select f.id as FoodId,
+                                       res.restaurentName as RestaurentName 
                                       ,f.RestaurentId as RestaurentId
                                       ,f.FoodName as FoodName
                                       ,f.Price as Price

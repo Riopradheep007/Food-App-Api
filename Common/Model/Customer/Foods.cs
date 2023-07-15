@@ -8,6 +8,7 @@ namespace Common.Model.Customer
 {
     public  class Foods
     {
+        public int FoodId { get; set; }
         public int RestaurentId { get; set; }
         public string RestaurentName { get; set; }
         public string FoodName { get; set; }
