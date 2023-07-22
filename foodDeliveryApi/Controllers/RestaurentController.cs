@@ -1,4 +1,5 @@
 ﻿using Common.Model.Restaurent;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Functional;
 using Services.Interfaces;
@@ -19,7 +20,7 @@ namespace foodDeliveryApi.Controllers
             _logger = logger;
         }
         [HttpGet]
-        [Route("restaurent-information")]
+        [Route("restaurent-information"), Authorize(Roles = "Restaurent")]
         public IActionResult GetRestaurentInformation([FromQuery] int id)
         {
             _logger.LogInformation($"{this.GetType().Name} {MethodBase.GetCurrentMethod().Name} Function entered");
@@ -29,7 +30,7 @@ namespace foodDeliveryApi.Controllers
         }
 
         [HttpPost]
-        [Route("food")]
+        [Route("food"), Authorize(Roles = "Restaurent")]
         public IActionResult AddFood([FromBody] Food food)
         {
             try
@@ -44,7 +45,7 @@ namespace foodDeliveryApi.Controllers
 
         }
         [HttpPut]
-        [Route("food")]
+        [Route("food"), Authorize(Roles = "Restaurent")]
         public IActionResult UpdateFood([FromBody] UpdateFood food)
         {
             try
@@ -59,7 +60,7 @@ namespace foodDeliveryApi.Controllers
         }
 
         [HttpGet]
-        [Route("foods")]
+        [Route("foods"), Authorize(Roles = "Restaurent")]
         public IActionResult GetAllFoods([FromQuery] int id)
         {
             try
@@ -74,7 +75,7 @@ namespace foodDeliveryApi.Controllers
         }
 
         [HttpDelete]
-        [Route("{restaurentId}/food/{foodId}")]
+        [Route("{restaurentId}/food/{foodId}"), Authorize(Roles = "Restaurent")]
         public IActionResult deleteFood([FromRoute] int restaurentId, [FromRoute] int foodId,[FromQuery] string imgPath)
         {
             try
@@ -89,7 +90,7 @@ namespace foodDeliveryApi.Controllers
         }
 
         [HttpPut]
-        [Route("restaurent-information")]
+        [Route("restaurent-information"), Authorize(Roles = "Restaurent")]
         public IActionResult UpdateRestaurentInformation([FromBody] RestaurentInformation restaurentInformation)
         {
             try
