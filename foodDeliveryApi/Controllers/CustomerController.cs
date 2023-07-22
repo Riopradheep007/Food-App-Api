@@ -1,6 +1,8 @@
 ﻿using Common.Enum;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
+using System.Data;
 
 namespace foodDeliveryApi.Controllers
 {
@@ -15,7 +17,7 @@ namespace foodDeliveryApi.Controllers
         }
 
         [HttpGet]
-        [Route("foods/{foodType}")]
+        [Route("foods/{foodType}"), Authorize(Roles = "customer")]
         public IActionResult GetFoods([FromRoute] string foodType)
         {
             try
