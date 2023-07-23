@@ -1,4 +1,5 @@
 using DataAccess;
+using foodDeliveryApi.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -64,7 +65,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = false
         };
     });
-
+builder.Services.AddSignalR();
 
 
 DataAccessRegistrations.RegisterDataAccess(builder.Services);
@@ -79,6 +80,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseCors(allowedOrigins);
+app.MapHub<SignalRHub>("/signalr-hub");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
