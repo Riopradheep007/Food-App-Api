@@ -1,4 +1,6 @@
-﻿using Common.Model.Restaurent;
+﻿using Common.Model.Customer;
+using Common.Model.Restaurent;
+using foodDeliveryApi.Hubs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Functional;
@@ -13,11 +15,15 @@ namespace foodDeliveryApi.Controllers
     {
         private readonly Lazy<IRestaurentService> _restaurentService;
         private readonly ILogger<RestaurentController> _logger;
-        public RestaurentController(Lazy<IRestaurentService> restaurentService,
-                                       ILogger<RestaurentController> logger)
+        private readonly Lazy<ICustomerService> _customerService;
+        private readonly SignalRHub _signalRHub;
+        public RestaurentController(Lazy<IRestaurentService> restaurentService,Lazy<ICustomerService> customerService,
+                                       ILogger<RestaurentController> logger, SignalRHub signalRHub)
         {
             _restaurentService = restaurentService;
             _logger = logger;
+            _customerService = customerService;
+            _signalRHub = signalRHub;
         }
         [HttpGet]
         [Route("restaurent-information"), Authorize(Roles = "Restaurent")]
@@ -36,6 +42,7 @@ namespace foodDeliveryApi.Controllers
             try
             {
                 _restaurentService.Value.AddFood(food);
+                BroadCastFoodData();
                 return Ok();
             }
             catch (Exception ex)
@@ -51,12 +58,23 @@ namespace foodDeliveryApi.Controllers
             try
             {
                 _restaurentService.Value.UpdateFood(food);
+                BroadCastFoodData();
                 return Ok();
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        private async void BroadCastFoodData() {
+
+            IList<Foods> spicesdata = _customerService.Value.GetFoods("spices");
+            await this._signalRHub.BroadCastSpicesData(spicesdata);
+            IList<Foods> juiceData = _customerService.Value.GetFoods("juice");
+            await this._signalRHub.BroadCastJuiceData(juiceData);
+            IList<Foods> iceCreamData = _customerService.Value.GetFoods("iceCream");
+            await this._signalRHub.BroadCastIceCreamData(iceCreamData);
         }
 
         [HttpGet]
@@ -81,6 +99,7 @@ namespace foodDeliveryApi.Controllers
             try
             {
                 _restaurentService.Value.DeleteFood(restaurentId,foodId,imgPath);
+                BroadCastFoodData();
                 return Ok();
             }
             catch (Exception ex)

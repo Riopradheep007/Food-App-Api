@@ -34,6 +34,7 @@ namespace Common.Model.Restaurent
         public string? FoodImage { get; set; }
         public int RestaurentId { get; set; }
         public string ImagePath { get; set; }
+        public string FoodType { get; set; }
     }
 
     public class RestaurentInformation

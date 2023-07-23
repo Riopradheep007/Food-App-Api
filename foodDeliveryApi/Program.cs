@@ -3,6 +3,7 @@ using foodDeliveryApi.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using PostSharp.Extensibility;
 using Serilog;
 using Serilog.Events;
 using Services;
@@ -67,7 +68,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 builder.Services.AddSignalR();
 
-
+builder.Services.AddTransient<SignalRHub>();
 DataAccessRegistrations.RegisterDataAccess(builder.Services);
 ServiceRegistrations.RegisterServices(builder.Services);
 

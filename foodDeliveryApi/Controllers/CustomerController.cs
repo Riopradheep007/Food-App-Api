@@ -17,7 +17,7 @@ namespace foodDeliveryApi.Controllers
         }
 
         [HttpGet]
-        [Route("foods/{foodType}"), Authorize(Roles = "Customer")]
+        [Route("foods/{foodType}")]
         public IActionResult GetFoods([FromRoute] string foodType)
         {
             try

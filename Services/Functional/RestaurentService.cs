@@ -1,19 +1,21 @@
-﻿using Common.Model.Restaurent;
+﻿using Common.Model.Customer;
+using Common.Model.Restaurent;
 using DataAccess.Interfaces;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Mysqlx.Crud;
 using Services.Interfaces;
 using System.IO;
-
 namespace Services.Functional
 {
     public  class RestaurentService:IRestaurentService
     {
         private readonly Lazy<IRestaurentDataAccess> _restaurentDataAccess;
         private readonly IConfiguration _Configuration;
-        public RestaurentService(Lazy<IRestaurentDataAccess> restaurentDataAccess, IConfiguration Configuration)
+        public RestaurentService(Lazy<IRestaurentDataAccess> restaurentDataAccess,
+            IConfiguration Configuration)
         {
             _restaurentDataAccess = restaurentDataAccess;
             _Configuration = Configuration;
@@ -34,13 +36,13 @@ namespace Services.Functional
         }
         public void UpdateFood(UpdateFood food)
         { 
-           _restaurentDataAccess.Value.UpdateFood(food);
+            _restaurentDataAccess.Value.UpdateFood(food);
             if (!string.IsNullOrWhiteSpace(food.ImagePath))
             {
                 DeleteImage(food.ImagePath);
                 UpdateImage(food.ImagePath,food.FoodImage);
             }
-         
+
         }
         public IList<RestaurentFoods> GetAllFoods(int id)
         {
