@@ -37,7 +37,7 @@ namespace Services.Functional
         public void UpdateFood(UpdateFood food)
         { 
             _restaurentDataAccess.Value.UpdateFood(food);
-            if (!string.IsNullOrWhiteSpace(food.ImagePath))
+            if (!string.IsNullOrWhiteSpace(food.FoodImage))
             {
                 DeleteImage(food.ImagePath);
                 UpdateImage(food.ImagePath,food.FoodImage);
