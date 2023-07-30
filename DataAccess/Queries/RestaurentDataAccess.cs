@@ -1,4 +1,5 @@
 ﻿using Common.Model.Authentication;
+using Common.Model.Customer;
 using Common.Model.Restaurent;
 using DataAccess.Abstract;
 using DataAccess.Interfaces;
@@ -74,6 +75,31 @@ namespace DataAccess.Queries
             string query = $@"update foods set imagePath = '{filePath}'
                                  where restaurentId = '{restaurentId}' and id = '{foodId}'";
             ExecuteNonQuery(query, null, CommandType.Text);
+        }
+
+        public IList<CustomerOrders> GetOrders(int id)
+        {
+            string query = $@"select id as OrderId 
+                                    ,RestaurentId
+                                    ,Name
+                                    ,Paid
+	                                ,Status
+	                                ,Location
+	                                ,OrderDetails
+                                    ,Date
+                                    from orders
+                                    where restaurentId = {id} and Status <> -1";
+            DbDataReader reader = GetDataReader(query, null, System.Data.CommandType.Text);
+            IList<CustomerOrders> result = FetchResult<CustomerOrders>(reader);
+            return result;
+        }
+
+        public void UpdateOrderStatus(OrderStatus orderStatus)
+        {
+            string query = $@"update orders set Status = {orderStatus.Status}
+                                    where id = {orderStatus.OrderId} and restaurentId = {orderStatus.RestaurentId}";
+            ExecuteNonQuery(query,null, System.Data.CommandType.Text);
+                                           
         }
     }
 }

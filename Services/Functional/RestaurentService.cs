@@ -62,6 +62,18 @@ namespace Services.Functional
             _restaurentDataAccess.Value.UpdateRestaurentInformation(restaurentInformation);
         }
 
+        public IList<CustomerOrders> GetOrders(int id)
+        {
+            var result = _restaurentDataAccess.Value.GetOrders(id);
+            return result;
+        }
+        public IList<CustomerOrders> UpdateOrderStatus(OrderStatus orderStatus)
+        {
+            _restaurentDataAccess.Value.UpdateOrderStatus(orderStatus);
+            var result = _restaurentDataAccess.Value.GetOrders(orderStatus.RestaurentId);
+            return result;
+        }
+
         private string CreateRestaurentFolder(int restaurentId)
         {
             string imageDataBasePath = _Configuration.GetValue<string>("FilePath:SaveFoodFolder");

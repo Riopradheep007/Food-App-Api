@@ -1,4 +1,5 @@
 ﻿using Common.Model.Authentication;
+using Common.Model.Customer;
 using Common.Model.Restaurent;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,7 @@ namespace DataAccess.Interfaces
         public void addFilePathToFood(string filePath,int foodId,int restaurentId);
         public void deleteFood(int restaurentId, int foodId);
         public void UpdateRestaurentInformation(RestaurentInformation restaurentInformation);
+        public IList<CustomerOrders> GetOrders(int id);
+        public void  UpdateOrderStatus(OrderStatus orderStatus);
     }
 }

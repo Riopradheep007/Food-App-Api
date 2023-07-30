@@ -1,4 +1,5 @@
 ﻿using Common.Enum;
+using Common.Model.Customer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
@@ -24,6 +25,20 @@ namespace foodDeliveryApi.Controllers
             {
                 var customer = _customerService.Value.GetFoods(foodType);
                 return Ok(customer);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpPost("orders")]
+        public IActionResult PlaceOrders([FromBody] List<Orders> orders)
+        {
+            try
+            {
+                _customerService.Value.PlaceOrders(orders);
+                return Ok();
             }
             catch (Exception ex)
             {

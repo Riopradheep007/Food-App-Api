@@ -10,5 +10,6 @@ namespace Services.Interfaces
     public  interface ICustomerService
     {
         public IList<Foods> GetFoods(string foodType);
+        public void PlaceOrders(List<Orders> orders);
     }
 }

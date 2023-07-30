@@ -49,4 +49,23 @@ namespace Common.Model.Restaurent
 
 
     }
+    public class CustomerOrders
+    {
+        public int OrderId { get; set; }
+        public string Name { get; set; }
+        public decimal Paid { get; set; }
+        public string OrderDetails { get; set; }
+        public int RestaurentId { get; set; }
+        public string Location { get; set; }
+        public int Status { get; set; }
+        public DateTime Date { get; set; }
+    }
+
+    public class OrderStatus
+    {
+        public int OrderId { get; set; }
+        public int RestaurentId { get; set; }
+        public int Status { get; set; }
+    }
+
 }

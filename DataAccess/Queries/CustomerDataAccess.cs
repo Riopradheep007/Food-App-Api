@@ -37,6 +37,32 @@ namespace DataAccess.Queries
             return result;
         }
 
+        public void PlaceOrders(List<Orders> orders)
+        {
+            foreach (var order in orders)
+            {
+                string query  = $@"insert into Orders 
+                                (RestaurentId
+                                 ,`Name`
+                                 ,Paid
+                                 ,`Status`
+                                 ,Location
+                                 ,OrderDetails
+                                 ,Date
+	                            )values  (
+                                 {order.RestaurentId},
+                                 '{order.Name}',
+                                 {order.Paid},
+                                 {0},
+                                 '{order.Location}',
+                                 '{order.OrderDetails}',
+                                  NOW()
+                                );";
+                ExecuteNonQuery(query, null, System.Data.CommandType.Text);
+            }
+
+        }
+
 
     }
 }

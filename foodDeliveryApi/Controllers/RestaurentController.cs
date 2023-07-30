@@ -122,6 +122,34 @@ namespace foodDeliveryApi.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [HttpGet("orders/{id}")]
+        public IActionResult GetOrders([FromRoute] int id)
+        {
+            try
+            {
+                var result = _restaurentService.Value.GetOrders(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpPut("orders")]
+        public IActionResult UpdateOrderStatus([FromBody] OrderStatus orderStatus)
+        {
+            try
+            {
+                var result = _restaurentService.Value.UpdateOrderStatus(orderStatus);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
  
 }

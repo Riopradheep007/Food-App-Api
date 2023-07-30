@@ -23,5 +23,10 @@ namespace Services.Functional
           var result = _customerdataAccess.Value.GetFoods(foodType);
           return result;
         }
+
+        public void PlaceOrders(List<Orders> orders)
+        {
+            _customerdataAccess.Value.PlaceOrders(orders);
+        }
     }
 }

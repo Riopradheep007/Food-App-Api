@@ -10,5 +10,6 @@ namespace DataAccess.Interfaces
     public  interface ICustomerDataAccess
     {
         public IList<Foods> GetFoods(string foodType);
+        public void PlaceOrders(List<Orders> orders);
     }
 }

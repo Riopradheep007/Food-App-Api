@@ -1,4 +1,5 @@
-﻿using Common.Model.Restaurent;
+﻿using Common.Model.Customer;
+using Common.Model.Restaurent;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace Services.Interfaces
         public IList<RestaurentFoods>  GetAllFoods(int id);
         public void DeleteFood(int restaurentId, int foodId, string imgPath);
         public void UpdateRestaurentInformation(RestaurentInformation restaurentInformation);
+        public IList<CustomerOrders> GetOrders(int id);
+        public IList<CustomerOrders> UpdateOrderStatus(OrderStatus orderStatus);
 
     }
 }
