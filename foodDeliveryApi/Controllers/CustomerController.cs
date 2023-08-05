@@ -59,6 +59,8 @@ namespace foodDeliveryApi.Controllers
             {
                var result = _restaurentService.Value.GetOrders(order.RestaurentId);
                _signalRHub.SendCustomerOrders(result);
+           /*    var dashboardData = _restaurentService.Value.GetDashboardData(order.RestaurentId);
+               _signalRHub.SendDashboardData(dashboardData);*/
             }
         }
     }

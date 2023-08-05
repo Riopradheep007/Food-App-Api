@@ -10,5 +10,6 @@ namespace foodDeliveryApi.Hubs
         public Task BroadCastJuiceData(Foods data);
         public  Task BroadCastIceCreamData(Foods data);
         public Task SendCustomerOrders(IList<CustomerOrders> orders);
+        public Task SendDashboardData(Dashboard data);
     }
 }

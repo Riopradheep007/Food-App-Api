@@ -1,6 +1,7 @@
 ﻿using Common.Model.Customer;
 using Common.Model.Restaurent;
 using Microsoft.AspNetCore.SignalR;
+using Mysqlx.Crud;
 
 namespace foodDeliveryApi.Hubs
 {
@@ -31,6 +32,10 @@ namespace foodDeliveryApi.Hubs
         public async Task SendCustomerOrders(IList<CustomerOrders> orders)
         {
             await _hubcontext.Clients.All.SendAsync("Orders",orders);
+        }
+        public async Task SendDashboardData(Dashboard data)
+        {
+            await _hubcontext.Clients.All.SendAsync("Dashboard", data);
         }
     }
 }

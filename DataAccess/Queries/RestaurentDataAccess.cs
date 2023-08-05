@@ -116,7 +116,8 @@ namespace DataAccess.Queries
             }
             UpdateDashboardData(id);
 
-            string query = $@"select Customers
+            string query = $@"select  RestaurentId
+                                     ,Customers
                                      ,Revenue
                                      ,PendingOrders
                                      ,DeliverdOrders
@@ -127,7 +128,7 @@ namespace DataAccess.Queries
                                      ,Thursday
                                      ,Friday
                                      ,Saturday
-                                     ,Saturday
+                                     ,Sunday
                                      from dashboard
                                      where restaurentId = {id}";
             Dashboard dashboard = new Dashboard();
@@ -135,6 +136,7 @@ namespace DataAccess.Queries
             DbDataReader reader = GetDataReader(query, null, System.Data.CommandType.Text);
             if (reader.Read())
             {
+                dashboard.RestaurentId = Convert.ToInt32(reader["RestaurentId"]);
                 dashboard.Customers = Convert.ToInt32(reader["Customers"]);
                 dashboard.Revenue = Convert.ToInt32(reader["Revenue"]);
                 dashboard.PendingOrders = Convert.ToInt32(reader["PendingOrders"]);
@@ -146,7 +148,7 @@ namespace DataAccess.Queries
                 revenues.Add(Convert.ToInt32(reader["Thursday"]));
                 revenues.Add(Convert.ToInt32(reader["Friday"]));
                 revenues.Add(Convert.ToInt32(reader["Saturday"]));
-                revenues.Add(Convert.ToInt32(reader["Saturday"]));
+                revenues.Add(Convert.ToInt32(reader["Sunday"]));
                 dashboard.Revenues = revenues;
             }
 
@@ -157,12 +159,9 @@ namespace DataAccess.Queries
         private int CheckDashboardDateIsValid(int id)
         {
             string query = $@"
-                            SET @alreadyStoredDate = (SELECT CAST(todayDate AS DATE) FROM dashboard where restaurentId = {id});
-                            SET @todayDay = CURDATE();
-
-                            select CASE WHEN DATE(@todayDay) > DATE(@alreadyStoredDate) THEN 1 ELSE 0 END
-
-                            ";
+                            SELECT CASE WHEN DATE(CURDATE()) > DATE(CAST(todayDate AS DATE)) THEN 1 ELSE 0 END 
+                            FROM dashboard 
+                            WHERE restaurentId = {id};";
             return Convert.ToInt32(ExecuteScalar(query,null,System.Data.CommandType.Text));
         }
 
@@ -181,13 +180,9 @@ namespace DataAccess.Queries
 
         private int CheckRevenueDateIsValid(int id)
         {
-            string query = $@"
-                            SET @alreadyStoredDate = (SELECT CAST(revenuesClearDate AS DATE) FROM dashboard where restaurentId = {id});
-                            SET @todayDay = CURDATE();
-
-                            select CASE WHEN DATE(@todayDay) > DATE(@alreadyStoredDate) THEN 1 ELSE 0 END
-
-                            ";
+            string query = $@"SELECT CASE WHEN DATE(CURDATE()) > DATE(CAST(revenuesClearDate AS DATE)) THEN 1 ELSE 0 END 
+                                FROM dashboard
+                                WHERE restaurentId = {id};";
             return Convert.ToInt32(ExecuteScalar(query, null, System.Data.CommandType.Text));
         }
 
@@ -210,11 +205,11 @@ namespace DataAccess.Queries
             string currentDay = DateTime.Now.DayOfWeek.ToString();
             string query = $@"update dashboard set 
                               customers = (select count(id)  from orders where restaurentId = {id}),
-                              revenue = (select sum(paid)  from orders where restaurentId = {id}),
+                              revenue = (select ifNull(sum(paid),0)  from orders where restaurentId = {id}),
                               pendingOrders =  (select count(id)  from orders where restaurentId = {id} and `status` = 0),
                               deliverdOrders = (select count(id)  from orders where restaurentId = {id} and `status` = 2),
                               cancelledOrders = (select count(id)  from orders where restaurentId = {id}  and `status` = -1),
-                              {currentDay} = (select sum(paid)  from orders where restaurentId = {id})
+                              {currentDay} = (select ifNull(sum(paid),0)  from orders where restaurentId = {id})
                               where restaurentId = {id}";
 
             ExecuteNonQuery(query, null, System.Data.CommandType.Text);

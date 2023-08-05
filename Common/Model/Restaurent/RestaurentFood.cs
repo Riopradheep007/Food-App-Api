@@ -70,6 +70,7 @@ namespace Common.Model.Restaurent
 
     public class Dashboard
     { 
+      public int RestaurentId { get; set; }
       public int Customers { get; set; }
       public int Revenue { get; set; }
       public int PendingOrders { get; set; }
