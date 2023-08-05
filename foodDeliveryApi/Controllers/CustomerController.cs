@@ -1,5 +1,7 @@
 ﻿using Common.Enum;
 using Common.Model.Customer;
+using Common.Model.Restaurent;
+using foodDeliveryApi.Hubs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
@@ -12,9 +14,13 @@ namespace foodDeliveryApi.Controllers
     public class CustomerController: ControllerBase
     {
         private readonly Lazy<ICustomerService> _customerService;
-        public CustomerController(Lazy<ICustomerService> customerService)
+        private readonly SignalRHub _signalRHub;
+        private readonly Lazy<IRestaurentService> _restaurentService;
+        public CustomerController(Lazy<ICustomerService> customerService,SignalRHub signalRHub, Lazy<IRestaurentService> restaurentService)
         {
-              _customerService = customerService;
+            _customerService = customerService;
+            _signalRHub = signalRHub;
+            _restaurentService = restaurentService;
         }
 
         [HttpGet]
@@ -38,11 +44,21 @@ namespace foodDeliveryApi.Controllers
             try
             {
                 _customerService.Value.PlaceOrders(orders);
+                SendCustomerOrdersToRestaurents(orders);
                 return Ok();
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
+            }
+        }
+
+        private void SendCustomerOrdersToRestaurents(List<Orders> orders)
+        {
+            foreach (var order in orders)
+            {
+               var result = _restaurentService.Value.GetOrders(order.RestaurentId);
+               _signalRHub.SendCustomerOrders(result);
             }
         }
     }

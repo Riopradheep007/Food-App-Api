@@ -1,4 +1,5 @@
 ﻿using Common.Model.Customer;
+using Common.Model.Restaurent;
 using Microsoft.AspNetCore.SignalR;
 
 namespace foodDeliveryApi.Hubs
@@ -26,6 +27,10 @@ namespace foodDeliveryApi.Hubs
         public async Task BroadCastIceCreamData(IList<Foods> data)
         {
             await _hubcontext.Clients.All.SendAsync("IceCream", data);
+        }
+        public async Task SendCustomerOrders(IList<CustomerOrders> orders)
+        {
+            await _hubcontext.Clients.All.SendAsync("Orders",orders);
         }
     }
 }

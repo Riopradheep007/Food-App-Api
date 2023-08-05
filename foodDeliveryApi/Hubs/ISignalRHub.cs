@@ -1,4 +1,5 @@
 ﻿using Common.Model.Customer;
+using Common.Model.Restaurent;
 
 namespace foodDeliveryApi.Hubs
 {
@@ -8,5 +9,6 @@ namespace foodDeliveryApi.Hubs
         public Task BroadCastSpicesData(Foods data);
         public Task BroadCastJuiceData(Foods data);
         public  Task BroadCastIceCreamData(Foods data);
+        public Task SendCustomerOrders(IList<CustomerOrders> orders);
     }
 }
