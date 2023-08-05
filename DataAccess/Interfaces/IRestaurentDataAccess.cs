@@ -20,5 +20,6 @@ namespace DataAccess.Interfaces
         public void UpdateRestaurentInformation(RestaurentInformation restaurentInformation);
         public IList<CustomerOrders> GetOrders(int id);
         public void  UpdateOrderStatus(OrderStatus orderStatus);
+        public Dashboard GetDashboardData(int id);
     }
 }

@@ -19,6 +19,7 @@ namespace Services.Interfaces
         public void UpdateRestaurentInformation(RestaurentInformation restaurentInformation);
         public IList<CustomerOrders> GetOrders(int id);
         public IList<CustomerOrders> UpdateOrderStatus(OrderStatus orderStatus);
+        public Dashboard GetDashboardData(int id);
 
     }
 }

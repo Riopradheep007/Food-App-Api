@@ -101,6 +101,126 @@ namespace DataAccess.Queries
             ExecuteNonQuery(query,null, System.Data.CommandType.Text);
                                            
         }
+
+        public Dashboard GetDashboardData(int id)
+        {
+
+            if(CheckDashboardDateIsValid(id) == 1)
+            {
+                UpdateDashboardDataToZero(id);
+
+            }
+            if (CheckRevenueDateIsValid(id) == 1)
+            {
+                UpdateDashboardRevenueDataToZero(id);
+            }
+            UpdateDashboardData(id);
+
+            string query = $@"select Customers
+                                     ,Revenue
+                                     ,PendingOrders
+                                     ,DeliverdOrders
+                                     ,CancelledOrders
+                                     ,Monday
+                                     ,Tuesday
+                                     ,Wednesday
+                                     ,Thursday
+                                     ,Friday
+                                     ,Saturday
+                                     ,Saturday
+                                     from dashboard
+                                     where restaurentId = {id}";
+            Dashboard dashboard = new Dashboard();
+            List<int> revenues = new List<int>();
+            DbDataReader reader = GetDataReader(query, null, System.Data.CommandType.Text);
+            if (reader.Read())
+            {
+                dashboard.Customers = Convert.ToInt32(reader["Customers"]);
+                dashboard.Revenue = Convert.ToInt32(reader["Revenue"]);
+                dashboard.PendingOrders = Convert.ToInt32(reader["PendingOrders"]);
+                dashboard.DeliveredOrders = Convert.ToInt32(reader["DeliverdOrders"]);
+                dashboard.CancelledOrders = Convert.ToInt32(reader["CancelledOrders"]);
+                revenues.Add(Convert.ToInt32(reader["Monday"]));
+                revenues.Add(Convert.ToInt32(reader["Tuesday"]));
+                revenues.Add(Convert.ToInt32(reader["Wednesday"]));
+                revenues.Add(Convert.ToInt32(reader["Thursday"]));
+                revenues.Add(Convert.ToInt32(reader["Friday"]));
+                revenues.Add(Convert.ToInt32(reader["Saturday"]));
+                revenues.Add(Convert.ToInt32(reader["Saturday"]));
+                dashboard.Revenues = revenues;
+            }
+
+            return dashboard;
+
+        }
+
+        private int CheckDashboardDateIsValid(int id)
+        {
+            string query = $@"
+                            SET @alreadyStoredDate = (SELECT CAST(todayDate AS DATE) FROM dashboard where restaurentId = {id});
+                            SET @todayDay = CURDATE();
+
+                            select CASE WHEN DATE(@todayDay) > DATE(@alreadyStoredDate) THEN 1 ELSE 0 END
+
+                            ";
+            return Convert.ToInt32(ExecuteScalar(query,null,System.Data.CommandType.Text));
+        }
+
+        private void UpdateDashboardDataToZero(int id)
+        {
+            string query = $@"update dashboard set 
+                                     customers = 0,
+                                     revenue = 0,
+                                     pendingOrders =  0,
+                                     deliverdOrders = 0,
+                                     cancelledOrders = 0,
+                                     todayDate = CURDATE()
+                                     where restaurentId = {id};";
+            ExecuteNonQuery(query, null, System.Data.CommandType.Text);
+        }
+
+        private int CheckRevenueDateIsValid(int id)
+        {
+            string query = $@"
+                            SET @alreadyStoredDate = (SELECT CAST(revenuesClearDate AS DATE) FROM dashboard where restaurentId = {id});
+                            SET @todayDay = CURDATE();
+
+                            select CASE WHEN DATE(@todayDay) > DATE(@alreadyStoredDate) THEN 1 ELSE 0 END
+
+                            ";
+            return Convert.ToInt32(ExecuteScalar(query, null, System.Data.CommandType.Text));
+        }
+
+        private void UpdateDashboardRevenueDataToZero(int id)
+        {
+            string query = $@"update dashboard set 
+                            Monday = 0,
+                            Tuesday = 0,
+                            Wednesday = 0,
+                            Thursday = 0,
+                            Friday = 0,
+                            Saturday = 0,
+                            sunday = 0,
+                            revenuesClearDate = DATE_ADD(NOW(), INTERVAL 8 DAY)
+                            where restaurentId = {id}";
+            ExecuteNonQuery(query, null, System.Data.CommandType.Text);
+        }
+        private void UpdateDashboardData(int id)
+        {
+            string currentDay = DateTime.Now.DayOfWeek.ToString();
+            string query = $@"update dashboard set 
+                              customers = (select count(id)  from orders where restaurentId = {id}),
+                              revenue = (select sum(paid)  from orders where restaurentId = {id}),
+                              pendingOrders =  (select count(id)  from orders where restaurentId = {id} and `status` = 0),
+                              deliverdOrders = (select count(id)  from orders where restaurentId = {id} and `status` = 2),
+                              cancelledOrders = (select count(id)  from orders where restaurentId = {id}  and `status` = -1),
+                              {currentDay} = (select sum(paid)  from orders where restaurentId = {id})
+                              where restaurentId = {id}";
+
+            ExecuteNonQuery(query, null, System.Data.CommandType.Text);
+        }
+
+
     }
 }
 

@@ -68,4 +68,14 @@ namespace Common.Model.Restaurent
         public int Status { get; set; }
     }
 
+    public class Dashboard
+    { 
+      public int Customers { get; set; }
+      public int Revenue { get; set; }
+      public int PendingOrders { get; set; }
+      public int DeliveredOrders { get; set; }
+      public int CancelledOrders { get; set; }
+      public List<int> Revenues { get; set; }
+    }
+
 }

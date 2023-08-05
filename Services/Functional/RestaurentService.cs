@@ -74,6 +74,12 @@ namespace Services.Functional
             return result;
         }
 
+        public Dashboard GetDashboardData(int id)
+        {
+            var result = _restaurentDataAccess.Value.GetDashboardData(id);
+            return result;
+        }
+
         private string CreateRestaurentFolder(int restaurentId)
         {
             string imageDataBasePath = _Configuration.GetValue<string>("FilePath:SaveFoodFolder");

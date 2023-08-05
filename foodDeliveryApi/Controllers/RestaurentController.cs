@@ -149,6 +149,19 @@ namespace foodDeliveryApi.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [HttpGet("dashboards/{id}")]
+        public IActionResult GetDashboardData(int id)
+        {
+            try
+            {
+                var result = _restaurentService.Value.GetDashboardData(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
     }
  
