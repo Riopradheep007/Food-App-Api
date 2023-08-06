@@ -108,6 +108,7 @@ namespace DataAccess.Queries
             if(CheckDashboardDateIsValid(id) == 1)
             {
                 UpdateDashboardDataToZero(id);
+                ClearOrdersData(id);
 
             }
             if (CheckRevenueDateIsValid(id) == 1)
@@ -178,6 +179,11 @@ namespace DataAccess.Queries
             ExecuteNonQuery(query, null, System.Data.CommandType.Text);
         }
 
+        private void ClearOrdersData(int id)
+        {
+            string query = $@"delete from orders where restaurentId = {id}";
+            ExecuteNonQuery(query, null, System.Data.CommandType.Text);
+        }
         private int CheckRevenueDateIsValid(int id)
         {
             string query = $@"SELECT CASE WHEN DATE(CURDATE()) > DATE(CAST(revenuesClearDate AS DATE)) THEN 1 ELSE 0 END 

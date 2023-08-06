@@ -40,11 +40,24 @@ namespace DataAccess.Queries
                                   '{restaurentSignup.AccountNumber}','{restaurentSignup.Password}'
                                     where not exists( 
                                         select * from Restaurent where EmailId = '{restaurentSignup.Email}' 
-                                         and phoneNumber='{restaurentSignup.PhoneNumber}' and panNumber='{restaurentSignup.PanNumber}')";
-            ExecuteNonQuery(query, null, CommandType.Text);
+                                         and phoneNumber='{restaurentSignup.PhoneNumber}' and panNumber='{restaurentSignup.PanNumber}')
+                                  Select LAST_INSERT_ID() as Id" ;
+
+            int restaurentId = Convert.ToInt32(ExecuteScalar(query, null, CommandType.Text));
+            InsertDataIntoDashboard(restaurentId);
+
 
             return "";
         }
+
+        private void InsertDataIntoDashboard(int restaurentId)
+        {
+            string query = $@"insert into  dashboard (customers,revenue,pendingOrders,deliverdOrders,cancelledOrders,todayDate,restaurentId
+                                  ,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday)
+                                  values (0,0,0,0,0,CURDATE(),{restaurentId},0,0,0,0,0,0,0)";
+            ExecuteNonQuery(query,null,CommandType.Text);
+        }
+        
         public string DeliveryRiderSignup(DeliveryRiderSignup deliveryRiderSignup)
         {
             string query = $@" Insert into customer(Name,EmailId,phoneNumber,Gender,PanNumber,DrivingLicenseNumber,
