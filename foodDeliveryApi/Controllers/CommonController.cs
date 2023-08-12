@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Services.Functional;
 using Services.Interfaces;
+using System.Reflection;
 
 namespace foodDeliveryApi.Controllers
 {
@@ -9,9 +10,11 @@ namespace foodDeliveryApi.Controllers
     public class CommonController: ControllerBase
     {
         private readonly Lazy<ICommonService> _commonService;
-        public CommonController(Lazy<ICommonService> commonService)
+        private readonly ILogger<CommonController> _logger;
+        public CommonController(Lazy<ICommonService> commonService, ILogger<CommonController> logger)
         {
             this._commonService = commonService;
+            _logger = logger;
         }
 
 
@@ -21,11 +24,14 @@ namespace foodDeliveryApi.Controllers
         {
             try
             {
+                _logger.LogInformation($"{this.GetType().Name} {MethodBase.GetCurrentMethod().Name} Function entered");
                 var result = _commonService.Value.GetMenu(role);
+                _logger.LogInformation($"{this.GetType().Name}  {MethodBase.GetCurrentMethod().Name} Function exited"); _logger.LogInformation($"{this.GetType().Name}  {MethodBase.GetCurrentMethod().Name} Function exited");
                 return Ok(result);
             }
             catch (Exception ex)
             {
+
                 throw new Exception(ex.Message);
             }
 

@@ -9,11 +9,12 @@ namespace foodDeliveryApi.Controllers
     public class SignupController: ControllerBase
     {
         private readonly Lazy<ISignupService> _signupService;
-        public SignupController(Lazy<ISignupService> signupService)
+        private readonly ILogger<CustomerController> _logger;
+        public SignupController(Lazy<ISignupService> signupService, ILogger<CustomerController> logger)
         {
 
             this._signupService = signupService;
-                
+            _logger = logger;
         }
 
         [HttpPost]

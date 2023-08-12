@@ -201,7 +201,7 @@ namespace DataAccess.Queries
                             Thursday = 0,
                             Friday = 0,
                             Saturday = 0,
-                            sunday = 0,
+                            Sunday = 0,
                             revenuesClearDate = DATE_ADD(NOW(), INTERVAL 8 DAY)
                             where restaurentId = {id}";
             ExecuteNonQuery(query, null, System.Data.CommandType.Text);

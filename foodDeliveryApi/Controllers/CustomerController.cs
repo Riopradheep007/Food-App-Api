@@ -16,11 +16,14 @@ namespace foodDeliveryApi.Controllers
         private readonly Lazy<ICustomerService> _customerService;
         private readonly SignalRHub _signalRHub;
         private readonly Lazy<IRestaurentService> _restaurentService;
-        public CustomerController(Lazy<ICustomerService> customerService,SignalRHub signalRHub, Lazy<IRestaurentService> restaurentService)
+        private readonly ILogger<CustomerController> _logger;
+        public CustomerController(Lazy<ICustomerService> customerService,SignalRHub signalRHub,
+            Lazy<IRestaurentService> restaurentService, ILogger<CustomerController> logger)
         {
             _customerService = customerService;
             _signalRHub = signalRHub;
             _restaurentService = restaurentService;
+            _logger = logger;
         }
 
         [HttpGet]

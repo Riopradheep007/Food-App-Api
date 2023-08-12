@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Services.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
+using System.Reflection;
 using System.Security.Claims;
 
 namespace foodDeliveryApi.Controllers
@@ -16,10 +17,14 @@ namespace foodDeliveryApi.Controllers
     {
         private readonly Lazy<IAuthenticationsService> _authenticationsService;
         private readonly IConfiguration _configuration;
-        public AuthenticationController(IConfiguration configuration, Lazy<IAuthenticationsService> authenticationsService)
+        private readonly ILogger<AuthenticationController>  _logger;
+        public AuthenticationController(IConfiguration configuration, 
+              Lazy<IAuthenticationsService> authenticationsService,
+              ILogger<AuthenticationController> logger)
         {
             _configuration = configuration;
             _authenticationsService = authenticationsService;
+            _logger = logger;
         }
 
         [HttpPost("login")]
@@ -27,23 +32,26 @@ namespace foodDeliveryApi.Controllers
         {
             try
             {
+                _logger.LogInformation($"{this.GetType().Name} {MethodBase.GetCurrentMethod().Name} Function entered");
                 var result = _authenticationsService.Value.Login(login);
                 result.token = CreateToken(login);
+                _logger.LogInformation($"{this.GetType().Name}  {MethodBase.GetCurrentMethod().Name} Function exited");
                 return Ok(result);
             }
             catch (UserNotFoundException ex)
             {
-                Log.Warning(ex.Message);
-            }
+                _logger.LogError(ex.Message);
+;            }
             catch (Exception ex)
             {
-                Log.Error(ex.Message);
+                _logger.LogError(ex.Message);
             }
             return BadRequest("Login failed.");
         }
 
         private string CreateToken(Login user)
         {
+            _logger.LogInformation($"{this.GetType().Name} {MethodBase.GetCurrentMethod().Name} Function entered");
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email, user.Email),
@@ -61,7 +69,7 @@ namespace foodDeliveryApi.Controllers
                 signingCredentials: creds);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
+            _logger.LogInformation($"{this.GetType().Name}  {MethodBase.GetCurrentMethod().Name} Function exited");
             return jwt;
         }
     }
