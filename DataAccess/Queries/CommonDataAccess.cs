@@ -22,7 +22,7 @@ namespace DataAccess.Queries
 
         public IList<SideBarMenus> GetMenu(string role)
         {
-            string query = $@"select DisplayNames,IconName,RouteLink from SideBarMenus where role = '{role}'";
+            string query = $@"select DisplayName,IconName,RouteLink from SideBarMenus where role = '{role}'";
             DbDataReader reader = GetDataReader(query, null, System.Data.CommandType.Text);
             IList<SideBarMenus>  result = FetchResult<SideBarMenus>(reader);
             return result;
